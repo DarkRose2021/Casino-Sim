@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<script src="./js/slots.js" defer></script>
+<html>
+    <head>
+        <title>Slots</title>
+        <link rel="stylesheet" href="./css/slots.css">
+        <script src="./js/slots.js" defer></script>
+    </head>
+    <body>
+        <div class="slots">
+            <div class="reel"></div>
+            <div class="reel"></div>
+            <div class="reel"></div>
+        </div>
+        <button id="spinButton">Spin</button>
+        <script>
+            const spinButton = document.getElementById('spinButton');
+            spinButton.addEventListener('click', () => {
+                rollAll();
+            });
+        </script>
+    </body>
+</html>
+
+
