@@ -24,18 +24,42 @@ const roll = (reel, offset = 0) => {
     })
 };
 
+const spinButton = document.getElementById('spinButton');
+const counterDisplay = document.getElementById('counterDisplay');
+let counter = 100;
+let reelsRolling = false;
+
+spinButton.addEventListener('click', () => {
+    if (!reelsRolling && counter > 0) {
+        reelsRolling = true;
+        spinButton.disabled = true;
+
+        rollAll()
+            .then(() => {
+                reelsRolling = false;
+                spinButton.disabled = false;
+
+                counter -= 10;
+                counterDisplay.textContent = counter;
+
+                if (counter <= 0 ) {
+                    spinButton.disabled = true;
+                }
+            })
+    }
+});
+
 function rollAll() {
     const reelsList = document.querySelectorAll('.slots > .reel');
-    Promise
-        .all ([...reelsList].map((reel, i) => roll(reel, i)) )
+    return Promise.all ([...reelsList].map((reel, i) => roll(reel, i)))
         .then((deltas) => {
             deltas.forEach((delta, i) => indexes[i] = (indexes[i] + delta)%num_icons);
             indexes.map((index) => {console.log(iconMap[index])});
             // check win conditions
-            if(indexes[0] == indexes[1] || indexes[0] == indexes[1] == indexes[2]) {
+            if(indexes[0] == indexes[1] || (indexes[0] == indexes[1] && indexes[0]== indexes[2])) {
                 console.log('WIN WIN WIN')
+                counter += 20;
+                counterDisplay.textContent = counter;
             }
-            // makes infinite loop
-            //setTimeout(rollAll, 3000);
-        })
+        });
 };

@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<script src="./js/slots.js" defer></script>
 <html>
     <head>
         <title>Slots</title>
@@ -13,12 +12,7 @@
             <div class="reel"></div>
         </div>
         <button id="spinButton">Spin</button>
-        <script>
-            const spinButton = document.getElementById('spinButton');
-            spinButton.addEventListener('click', () => {
-                rollAll();
-            });
-        </script>
+        <p>Funds: $<span id="counterDisplay">100</span></p>
     </body>
 </html>
 
