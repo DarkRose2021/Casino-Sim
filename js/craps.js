@@ -11,7 +11,6 @@ const hardway4BetButton = document.getElementById('hardway-4-bet');
 const hardway10BetButton = document.getElementById('hardway-10-bet');
 
 let point = null;
-let balance = 100;
 let rollCount = 0;
 
 function rollDice() {
@@ -25,58 +24,59 @@ function rollDice() {
 
   if (point === null) {
     if (total === 7 || total === 11) {
-      statusElement.textContent = 'You Win!';
-      balance += 10; 
+        statusElement.textContent = 'You Win!';
     } else if (total === 2 || total === 3 || total === 12) {
-      statusElement.textContent = 'You Lose!';
-      balance -= 10; 
+        statusElement.textContent = 'You Lose!';
     } else {
-      point = total;
-      pointElement.textContent = point;
-      statusElement.textContent = `Point established: ${point}`;
+        point = total;
+        pointElement.textContent = point;
+        statusElement.textContent = `Point established: ${point}`;
     }
-  } else {
-    if (total === 7) {
-      statusElement.textContent = 'You Lose!';
-      balance -= 10; 
-      point = null;
-      pointElement.textContent = '';
-    } else if (total === point) {
-      statusElement.textContent = 'You Win!';
-      balance += 10; 
-      point = null;
-      pointElement.textContent = '';
     } else {
-      statusElement.textContent = 'Roll again!';
+        if (total === 7) {
+            statusElement.textContent = 'You Lose!';
+            balance -= 10;
+            point = null;
+            pointElement.textContent = '';
+        } else if (total === point) {
+            statusElement.textContent = 'You Win!';
+            balance += 10;
+            point = null;
+            pointElement.textContent = '';
+        } else {
+            statusElement.textContent = 'Roll again!';
+        }
     }
-  }
 
-  rollCount++;
-  updateBalance();
-  rollButton.disabled = true;
-}
+    rollCount++;
+    updateBalance();
+    rollButton.disabled = true;
+    }
 
 function updateBalance() {
-    if (balance <= 0) {
-      statusElement.textContent = 'You are out of money. Click Withdraw to restart.';
-      rollButton.disabled = true;
-      withdrawButton.disabled = false;
-    } else {
-      rollButton.disabled = false; 
-      withdrawButton.disabled = true; 
-    }
+  const balanceDisplay = document.getElementById('balance-display');
+  balanceDisplay.textContent = `Balance: $${balance}`;
+
+  if (balance <= 0) {
+    statusElement.textContent = 'You are out of money. Click Withdraw to restart.';
+    rollButton.disabled = true;
+    withdrawButton.disabled = false;
+  } else {
+    rollButton.disabled = false;
+    withdrawButton.disabled = true;
+  }
   }
 
-function makeBet(betAmount) {
-  if (balance >= betAmount) {
-    balance -= betAmount;
-    updateBalance();
-    return true;
-  } else {
-    statusElement.textContent = 'Insufficient balance for this bet.';
-    return false;
+  function makeBet(betAmount) {
+    if (balance >= betAmount) {
+      balance -= betAmount;
+      updateBalance();
+      return true;
+    } else {
+      statusElement.textContent = 'Insufficient balance for this bet.';
+      return false;
+    }
   }
-}
 
 function withdrawBalance() {
   balance = 100;
@@ -87,6 +87,8 @@ function withdrawBalance() {
   updateBalance();
   withdrawButton.disabled = true;
 }
+
+
 
 rollButton.addEventListener('click', rollDice);
 withdrawButton.addEventListener('click', withdrawBalance);

@@ -1,0 +1,19 @@
+body{
+    background-image: url(./imgs/background.png);
+    color: white;
+}
+
+img{
+    width: 350px;
+    padding: 10px;
+}
+
+section{
+    display: flex;
+    justify-content: center;
+}
+
+.fit{
+    display: flex;
+    flex-direction: row;
+}

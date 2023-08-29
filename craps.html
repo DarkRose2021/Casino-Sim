@@ -4,29 +4,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./css/craps.css">
   <title>Craps Game</title>
-</head>
-<body>
-  <div class="container">
-    <h1>Craps Game</h1>
-    <div id="dice-container">
-      <div class="dice" id="dice1"></div>
-      <div class="dice" id="dice2"></div>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/craps.css">
+    <title>Craps Game</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Craps Game</h1>
+      <p id="balance-display">Balance: $<span id="total-balance">1000</span></p>
+      <div id="dice-container">
+        <div class="dice" id="dice1"></div>
+        <div class="dice" id="dice2"></div>
+      </div>
+      <button id="roll-button">Roll Dice</button>
+      <button id="withdraw-button">Withdraw</button>
+      <div id="game-status">
+        <p class="point-status">Point: <span id="point"></span></p>
+        <p id="status"></p>
+      </div>
+      <div id="betting-panel">
+        <p>Bets:</p>
+        <button id="pass-bet">Pass</button>
+        <button id="dont-pass-bet">Don't Pass</button>
+        <button id="field-bet">Field</button>
+        <button id="hardway-4-bet">Hardway 4</button>
+        <button id="hardway-10-bet">Hardway 10</button>
+      </div>
     </div>
-    <button id="roll-button" disabled>Roll Dice</button>
-    <button id="withdraw-button">Withdraw</button>
-    <div id="game-status">
-      <p class="point-status">Point: <span id="point"></span></p>
-      <p id="status"></p>
-    </div>
-    <div id="betting-panel">
-      <p>Bets:</p>
-      <button id="pass-bet">Pass</button>
-      <button id="dont-pass-bet">Don't Pass</button>
-      <button id="field-bet">Field</button>
-      <button id="hardway-4-bet">Hardway 4</button>
-      <button id="hardway-10-bet">Hardway 10</button>
-    </div>
-  </div>
-  <script src="./js/craps.js"></script>
-</body>
-</html>
+    <script src="./js/moneyStuff.js"></script>
+    <script src="./js/craps.js"></script>
+  </body>
+  </html>
