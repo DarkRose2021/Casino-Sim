@@ -33,14 +33,13 @@ spinButton.addEventListener('click', () => {
     if (!reelsRolling && counter > 0) {
         reelsRolling = true;
         spinButton.disabled = true;
+        counter -= 10;
+        counterDisplay.textContent = counter;
 
         rollAll()
             .then(() => {
                 reelsRolling = false;
                 spinButton.disabled = false;
-
-                counter -= 10;
-                counterDisplay.textContent = counter;
 
                 if (counter <= 0 ) {
                     spinButton.disabled = true;
@@ -49,6 +48,18 @@ spinButton.addEventListener('click', () => {
     }
 });
 
+function showPopup(message) {
+    const popup = document.getElementById('popup');
+    const popupMessage = document.getElementById('popupMessage');
+
+    popupMessage.textContent = message;
+    popup.classList.add('show-popup');
+
+    setTimeout(() => {
+        popup.classList.remove('show-popup');
+    }, 3000);
+}
+
 function rollAll() {
     const reelsList = document.querySelectorAll('.slots > .reel');
     return Promise.all ([...reelsList].map((reel, i) => roll(reel, i)))
@@ -56,10 +67,21 @@ function rollAll() {
             deltas.forEach((delta, i) => indexes[i] = (indexes[i] + delta)%num_icons);
             indexes.map((index) => {console.log(iconMap[index])});
             // check win conditions
-            if(indexes[0] == indexes[1] || (indexes[0] == indexes[1] && indexes[0]== indexes[2])) {
-                console.log('WIN WIN WIN')
+            if (indexes[0] == indexes[1] && indexes[0] == indexes[2]) {
+                if (!winWinChecked) {
+                    const winWinWinMessage = 'WIN WIN WIN';
+                    console.log(winWinWinMessage);
+                    counter += 40;
+                    counterDisplay.textContent = counter;
+                    showPopup(winWinWinMessage);
+                    winWinChecked = true;
+                }
+            } else if (indexes[0] == indexes[1]) {
+                const winWinMessage = 'WIN WIN';
+                console.log(winWinMessage);
                 counter += 20;
                 counterDisplay.textContent = counter;
+                showPopup(winWinMessage);
             }
         });
 };
