@@ -79,7 +79,7 @@ function updateBalance() {
   }
 
 function withdrawBalance() {
-  balance = 100;
+  balance = balance;
   rollCount = 0;
   point = null;
   pointElement.textContent = '';
